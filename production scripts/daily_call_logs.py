@@ -51,7 +51,7 @@ time.sleep(1)
 driver.get("https://voip.bluelinetelecom.com/customer/60830/service/extension")
 
 #write the new log
-with open('downloaded csv filepath'+str(today.year)+'_'+str(today.month)+'_'+day+'.csv',newline='') as exported:
+with open('call activity csv filepath'+str(today.year)+'_'+str(today.month)+'_'+day+'.csv',newline='') as exported:
     export_reader=csv.reader(exported,dialect='excel')
     #delete the old log
     try:
@@ -59,6 +59,7 @@ with open('downloaded csv filepath'+str(today.year)+'_'+str(today.month)+'_'+day
     except:
         pass
     with open('new log filepath','w',newline='') as export:
+        #today_date=datetime.datetime(int(today.year),int(today.month),int(day))
         export_writer=csv.writer(export,dialect='excel')
         export_writer.writerow(next(export_reader, None))
         for row in export_reader:
@@ -77,5 +78,4 @@ with open('downloaded csv filepath'+str(today.year)+'_'+str(today.month)+'_'+day
                     print("this extension doesn't exist")
             export_writer.writerow(row)
             driver.find_element_by_css_selector("#searchBox").clear()
-
-send_mail("sales rep email address, customer email address","company automated email address","Call Logs for "+str(time_ago.month)+"-"+old_day+"-"+str(time_ago.year)+" to "+str(today.month)+"-"+day+"-"+str(today.year),"","new log filepath")
+        send_mail("sales rep email address, customer email address","company automated email address","Call Logs for "+str(time_ago.month)+"-"+old_day+"-"+str(time_ago.year)+" to "+str(today.month)+"-"+day+"-"+str(today.year),"","C:\\Users\\rdp\\Documents\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\new_log.csv")

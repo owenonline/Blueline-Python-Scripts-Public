@@ -32,6 +32,7 @@ def execute_query(query):
     cursor = connection.cursor()
     try:
         cursor.execute(query)
+        print("query executed")
         connection.commit()
         #connection.close()
         print("done")
@@ -68,8 +69,8 @@ def api():
 def post_file():
     global stored_data
     file=request.files['file']
-    file.save('received file filepath'+file.filename)
-    stored_data='received file filepath'+file.filename
+    file.save('data file filepath'+file.filename)
+    stored_data='data file filepath'+file.filename
     print('data posted')
     return "complete"
 
@@ -92,22 +93,21 @@ def run_script():
     #run module with args if necessary
     result=''
     
-    #this code works but isn't being used for testing
-    #if stored_data!=None:
-    #    result=mod(stored_data)
-    #    print(result)
-    #else:
-    #    result=mod()
-    result=mod('C:\\Users\\rdp\\Pictures\\label.jpg')
+    if stored_data!=None:
+        result=mod(stored_data)
+        print(result)
+    else:
+        result=mod()
     
     #reset what needs to be reset
     stored_data=None
     sys.path.remove(path)
+    print("script run complete")
     return jsonify(result)
 
 @app.route('/run_sql',methods=['GET'])
 def run_sql():
-    #remotely execute read queries
+    #remotely execute write queries
     command=str(request.args['command'])
     cmdtype=str(request.args['cmdtype'])
     if cmdtype=='read':
@@ -116,6 +116,6 @@ def run_sql():
     if cmdtype=='write':
         execute_query(command)
         return "complete"
-
+    return "failed"
 
 api()
