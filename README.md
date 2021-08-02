@@ -11,6 +11,8 @@ Contents:
             =script containing method to automatically send an email from bluelinetelecom.python@gmail.com
     -production scripts
         =folder that contains scripts currently in a production run
+	+Inventory_Search_Tool.py
+            =tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database.
         +general_api.py
             =general API script that allows a remote user to run SQL commands and python modules on the server.
         +image_processor.py
