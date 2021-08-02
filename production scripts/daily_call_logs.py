@@ -78,4 +78,4 @@ with open('call activity csv filepath'+str(today.year)+'_'+str(today.month)+'_'+
                     print("this extension doesn't exist")
             export_writer.writerow(row)
             driver.find_element_by_css_selector("#searchBox").clear()
-        send_mail("sales rep email address, customer email address","company automated email address","Call Logs for "+str(time_ago.month)+"-"+old_day+"-"+str(time_ago.year)+" to "+str(today.month)+"-"+day+"-"+str(today.year),"","C:\\Users\\rdp\\Documents\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\new_log.csv")
+send_mail("sales rep email address, customer email address","company automated email address","Call Logs for "+str(time_ago.month)+"-"+old_day+"-"+str(time_ago.year)+" to "+str(today.month)+"-"+day+"-"+str(today.year),"","C:\\Users\\rdp\\Documents\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\new_log.csv")

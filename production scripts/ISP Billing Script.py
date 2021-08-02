@@ -5,13 +5,15 @@ import time
 from time import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 import csv
+import xlrd
 import datetime
+from datetime import datetime as dtt
 import os
 import pyautogui
 import datetime
 from selenium.webdriver.chrome.options import Options
 import sys
-sys.path.insert(1, 'email automation folder filepath')
+sys.path.insert(1, 'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\email automation')
 from gmail_auto import send_mail
 
 #reference variables
@@ -36,7 +38,7 @@ options = Options()
 #options.add_argument('--headless')
 options.add_argument("--window-size=1920,1080")
 #,options=options
-driver=webdriver.Chrome("chromedriver filepath",options=options)
+driver=webdriver.Chrome("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\chromedriver.exe",options=options)
 driver.get("https://customers.truechoicetech.com/login")
 driver.find_element_by_css_selector("#text").send_keys("")
 driver.find_element_by_css_selector("#password").send_keys("")
@@ -45,37 +47,40 @@ driver.get("https://customers.truechoicetech.com/billing")
 time.sleep(5)
 
 #only include bills due in current month and get all of them
-#MUST BE CHANGED MANUALLY EVERY MONTH
 driver.find_element_by_css_selector("#billdaterange").click()
 driver.find_element_by_css_selector("#leads-changes > div.daterangepicker.dropdown-menu.opensleft.cls_bill_date_range > div.ranges > ul > li:nth-child(5)").click()
 time.sleep(1)
-driver.find_element_by_xpath("//select[@name='tblBilling_length']/option[text()='100']").click()
-time.sleep(1)
-
-#go through every record on the first page of TMAS and grab the provider, bill date, and bill amount
-#add feature to go thru multiple pages
+driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[1]/div[1]/button").click()
+dt=dtt.now()
+time.sleep(2)
 
 TMAS_info={}
 def tmas():
-    for x in range(len(driver.find_elements_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div[3]/div/table/tbody/tr"))):
-        name=driver.find_elements_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div[3]/div/table/tbody/tr/td[1]/a")[x].text
-        provider=driver.find_elements_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div[3]/div/table/tbody/tr/td[1]/span")[x].text
-        bill_date=driver.find_elements_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div[3]/div/table/tbody/tr/td[2]")[x].text
-        bill_amount=driver.find_elements_by_xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div[3]/div/table/tbody/tr/td[6]")[x].text
-        bill_date=datetime.date.fromisoformat(bill_date.split(" ")[2]+'-'+dates[bill_date.split(" ")[0]]+'-'+bill_date.split(" ")[1][:2])
-        if "Blueline" in name or "True Choice" in name or "Waste Pro" in name:
-            #excluded entities
-            continue
-        TMAS_info[name]={
-            'provider':provider,
-            'bill date':bill_date,
-            'bill amount':bill_amount
-        }
-        indexes=driver.find_element_by_css_selector("#tblBilling_info").text.split(" ")
-        if indexes[5]!=indexes[3]:
-            driver.find_element_by_css_selector("#tblBilling_next").click()
-            tmas()
-
+    global dt
+    try:
+        print("ooh it worked")
+        book = xlrd.open_workbook("C:\\Users\\rdp\\Downloads\\Billing_"+dt.strftime("%Y-%m-%d %H_%M_%S")+".xls")
+        sh = book.sheet_by_index(0)
+        for rx in range(1,sh.nrows):
+            name=sh.cell_value(rowx=rx, colx=1)
+            provider=sh.cell_value(rowx=rx, colx=4)
+            bill_date=sh.cell_value(rowx=rx, colx=5)
+            bill_amount=sh.cell_value(rowx=rx, colx=8)
+            bill_date=datetime.date.fromisoformat(bill_date.split(" ")[2]+'-'+dates[bill_date.split(" ")[0]]+'-'+bill_date.split(" ")[1][:2])
+            if "Blueline" in name or "True Choice" in name or "Waste Pro" in name:
+                #excluded entities
+                continue
+            TMAS_info[name]={
+                'provider':provider,
+                'bill date':bill_date,
+                'bill amount':bill_amount
+            }
+    except:
+        print("somehow we got here")
+        dt=dt-datetime.timedelta(0,1)
+        tmas()
+    
+print("bouta run this function")
 tmas()
 
 #sign into coredial
@@ -175,10 +180,10 @@ for customer in TMAS_info:
             'Date':"No Invoice"
         }
 
-with open('isp data filepath'+datetime.date.today().strftime("%b-%Y")+'.csv','w',newline='') as csvfile:
+with open('C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\ISP Billing Data '+datetime.date.today().strftime("%b-%Y")+'.csv','w',newline='') as csvfile:
     writer=csv.writer(csvfile,dialect='excel')
     writer.writerow(['TMAS Name','Provider','TMAS Bill Date','TMAS Bill Amount','|||||','Coredial Name','Charge Info','Charge Total','Coredial Invoice Date'])
     for x in TMAS_info:
         writer.writerow([x,TMAS_info[x]['provider'],str(TMAS_info[x]['bill date']),TMAS_info[x]['bill amount'],'|||||',coredial_info[x]['Coredial Name'],coredial_info[x]['Relevant Charges'],coredial_info[x]['Total'],str(coredial_info[x]['Date'])])
 
-send_mail("accountancy worker email address","company automated email address",'ISP Billing Data '+datetime.date.today().strftime("%b-%Y"),"",'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\ISP Billing Data '+datetime.date.today().strftime("%b-%Y")+'.csv')
+send_mail("glao@bluelinetelecom.com","bluelinetelecom.python@gmail.com",'ISP Billing Data '+datetime.date.today().strftime("%b-%Y"),"",'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\ISP Billing Data '+datetime.date.today().strftime("%b-%Y")+'.csv')
