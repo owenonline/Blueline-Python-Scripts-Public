@@ -1,7 +1,8 @@
-# Blueline Python Scripts Public
-Public repository of scripts written for Blueline Telecom
+# Blueline Python Scripts
+Private repository of scripts written for Blueline Telecom
 
 Contents:
+
     -email automation
         =folder that contains scripts required for email automation
         +quickstart.py
@@ -10,6 +11,8 @@ Contents:
             =script containing method to automatically send an email from bluelinetelecom.python@gmail.com
     -production scripts
         =folder that contains scripts currently in a production run
+	+Inventory_Search_Tool.py
+            =tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database.
         +general_api.py
             =general API script that allows a remote user to run SQL commands and python modules on the server.
         +image_processor.py
@@ -26,6 +29,10 @@ Contents:
             =script that goes into TMAS and for every bill in the current month collects the provider, amount, date, and customer name and compares it with the charges ostensibly for the same customer in Coredial and sends the result to Gwen every monday
     -one-off scripts
         =folder that contains one-off projects never intended for continuous service, hence "one-off". Unless stated otherwise, each script completed its task successfully
+	+sql_backlog_check.py
+	    =generates a list of entries in the inventory csv file that aren't in the SQL server in order to discover why certain records didn't get uploaded
+	+sql_backlog_upload.py
+	    =uploads the contents of the inventory csv file (a compiled csv file of all the various inventory spreadsheets) to the new inventory SQL database
         +shoreham_blfs.py
             =set up the blfs for all 169 phone that needed Gabe's blank-blank-blank-blank-blf-blf-blank-blank-speed dial setup
         +ansaarie_holiday_removal.py
@@ -54,7 +61,6 @@ Contents:
             =script for Desmond that checks for when netcloud devices go on/offline and creates an audiovisual update on one of the chromecasts and sends him an email containing all the information for the change in status
         +bluecloud_backend.py
             =script that serves the same function as netcloud_script.py, but instead of updating a chromecast makes the information accessible by HTTP GET requests executed by an app. It also stores a list of unresolved events so the information displayed is consistent across all instances of the app, and does this with an SQL server. Recently this has been expanded into an all-encompassing backend for the expanding Bluecloud alert platform, which groups alerts from multiple platforms into one location for the IT team
-            =compressed folder containing all solution files... same as Netcloud app, but contains the code for the updpated version of the app which now accounts for netcloud events
     +.gitattributes
         =Git attributes file
     +README.md
