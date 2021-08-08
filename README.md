@@ -9,26 +9,26 @@ Contents:
     - Quickstart file to enable authentication of new email addresses and change auth scope
   - gmail_auto.py
     - script containing method to automatically send an email from bluelinetelecom.python@gmail.com
-    -production scripts
-        =folder that contains scripts currently in a production run
-	+Inventory_Search_Tool.py
-            =tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database.
-        +general_api.py
-            =general API script that allows a remote user to run SQL commands and python modules on the server.
-        +image_processor.py
-            =a script that takes a filepath as input and then outputs all the text and processed barcodes and their locations
-        +cps_script.py
-            =Script written for CPS Products to constantly monitor the ACD queue and send an email alert when an agent logs in or out. Runs 24/7
-        +refresh.py
-            =requests an email through the Gmail api and in doing generates a new token when the old one expires
-        +TMAS script.py
-            =Checks the Blueline TMAS for negative variances and compiles them into a spreadsheet which is sent to Liz every Monday
-        +ISP Billing Script.py
-            =script that goes into TMAS and for every bill in the current month collects the provider, amount, date, and customer name and compares it with the charges ostensibly for the same customer in Coredial and sends the result to Gwen every monday
-    -one-off scripts
-        =folder that contains one-off projects never intended for continuous service, hence "one-off". Unless stated otherwise, each script completed its task successfully
-	+sql_backlog_check.py
-	    =generates a list of entries in the inventory csv file that aren't in the SQL server in order to discover why certain records didn't get uploaded
+-production scripts
+ - folder that contains scripts currently in a production run
+ - Inventory_Search_Tool.py
+   - tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database.
+ - general_api.py
+   - general API script that allows a remote user to run SQL commands and python modules on the server.
+ - image_processor.py
+   - a script that takes a filepath as input and then outputs all the text and processed barcodes and their locations
+ - cps_script.py
+   - Script written for CPS Products to constantly monitor the ACD queue and send an email alert when an agent logs in or out. Runs 24/7
+ - refresh.py
+   - requests an email through the Gmail api and in doing generates a new token when the old one expires
+ - TMAS script.py
+   - Checks the Blueline TMAS for negative variances and compiles them into a spreadsheet which is sent to Liz every Monday
+ - ISP Billing Script.py
+   - script that goes into TMAS and for every bill in the current month collects the provider, amount, date, and customer name and compares it with the charges ostensibly for the same customer in Coredial and sends the result to Gwen every monday
+- one-off scripts
+  - folder that contains one-off projects never intended for continuous service, hence "one-off". Unless stated otherwise, each script completed its task successfully
+  - sql_backlog_check.py
+    - generates a list of entries in the inventory csv file that aren't in the SQL server in order to discover why certain records didn't get uploaded
 	+sql_backlog_upload.py
 	    =uploads the contents of the inventory csv file (a compiled csv file of all the various inventory spreadsheets) to the new inventory SQL database
         +shoreham_blfs.py
