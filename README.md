@@ -3,12 +3,12 @@ Public repository of scripts written for Blueline Telecom
 
 Contents:
 
-    -email automation
-        =folder that contains scripts required for email automation
-        +quickstart.py
-            =Quickstart file to enable authentication of new email addresses and change auth scope
-        +gmail_auto.py
-            =script containing method to automatically send an email from bluelinetelecom.python@gmail.com
+- email automation
+  - folder that contains scripts required for email automation
+  - quickstart.py
+    - Quickstart file to enable authentication of new email addresses and change auth scope
+  - gmail_auto.py
+    - script containing method to automatically send an email from bluelinetelecom.python@gmail.com
     -production scripts
         =folder that contains scripts currently in a production run
 	+Inventory_Search_Tool.py
