@@ -1,5 +1,5 @@
 # Blueline Python Scripts
-Private repository of scripts written for Blueline Telecom
+Public repository of scripts written for Blueline Telecom
 
 Contents:
 
