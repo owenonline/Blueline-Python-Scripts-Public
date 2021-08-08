@@ -19,7 +19,6 @@ Contents:
             =a script that takes a filepath as input and then outputs all the text and processed barcodes and their locations
         +cps_script.py
             =Script written for CPS Products to constantly monitor the ACD queue and send an email alert when an agent logs in or out. Runs 24/7
-        
         +refresh.py
             =requests an email through the Gmail api and in doing generates a new token when the old one expires
         +TMAS script.py
@@ -28,10 +27,10 @@ Contents:
             =script that goes into TMAS and for every bill in the current month collects the provider, amount, date, and customer name and compares it with the charges ostensibly for the same customer in Coredial and sends the result to Gwen every monday
     -one-off scripts
         =folder that contains one-off projects never intended for continuous service, hence "one-off". Unless stated otherwise, each script completed its task successfully
-	    +sql_backlog_check.py
-	        =generates a list of entries in the inventory csv file that aren't in the SQL server in order to discover why certain records didn't get uploaded
-	    +sql_backlog_upload.py
-	        =uploads the contents of the inventory csv file (a compiled csv file of all the various inventory spreadsheets) to the new inventory SQL database
+	+sql_backlog_check.py
+	    =generates a list of entries in the inventory csv file that aren't in the SQL server in order to discover why certain records didn't get uploaded
+	+sql_backlog_upload.py
+	    =uploads the contents of the inventory csv file (a compiled csv file of all the various inventory spreadsheets) to the new inventory SQL database
         +shoreham_blfs.py
             =set up the blfs for all 169 phone that needed Gabe's blank-blank-blank-blank-blf-blf-blank-blank-speed dial setup
         +ansaarie_holiday_removal.py
