@@ -62,6 +62,4 @@ Contents:
   - bluecloud_backend.py
     - script that serves the same function as netcloud_script.py, but instead of updating a chromecast makes the information accessible by HTTP GET requests executed by an app. It also stores a list of unresolved events so the information displayed is consistent across all instances of the app, and does this with an SQL server. Recently this has been expanded into an all-encompassing backend for the expanding Bluecloud alert platform, which groups alerts from multiple platforms into one location for the IT team
 - .gitattributes
-  - Git attributes file
 - README.md
-        =file containing location and description for all repository contents
