@@ -5,14 +5,15 @@ import time
 import csv
 from datetime import date
 import sys
-sys.path.insert(1, 'email automation folder filepath')
+sys.path.insert(1, 'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\email automation')
 from gmail_auto import send_mail
+import os
 
 options=Options()
 options.add_argument('--headless')
 options.add_argument("--window-size=1920,1080")
 #,options=options
-driver=webdriver.Chrome("chromedriver filepaeth")
+driver=webdriver.Chrome("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\chromedriver.exe")
 driver.get("https://customers.truechoicetech.com/login")
 driver.find_element_by_css_selector("#text").send_keys("")
 driver.find_element_by_css_selector("#password").send_keys("")
@@ -33,4 +34,5 @@ with open("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\productio
     for x in variances:
         writer.writerow(x)
 
-send_mail("accountancy worker email address, accountancy worker email address","company automated email address","TMAS variances for the week of "+str(date.today()),"","C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\week_of_"+str(date.today())+"_TMAS_variances.csv")
+send_mail("ecookson@truechoicetech.com, glao@bluelinetelecom.com","bluelinetelecom.python@gmail.com","TMAS variances for the week of "+str(date.today()),"","C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\week_of_"+str(date.today())+"_TMAS_variances.csv")
+os.remove("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\week_of_"+str(date.today())+"_TMAS_variances.csv")

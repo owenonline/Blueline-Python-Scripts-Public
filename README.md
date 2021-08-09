@@ -12,7 +12,9 @@ Contents:
 - production scripts
   * folder that contains scripts currently in a production run
   - Inventory_Search_Tool.py
-    - tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database.
+    - tool that allows the user to enter an SQL search command and then creates an excel table with the results. Any changes made to the table are then committed to the primary server database. This is now a GUI tool.
+  - Dup_Popup.py
+    - contains code for the popup window that appears in the inventory search tool GUI when a duplicate is found during the process of uploading records to the main inventory
   - general_api.py
     - general API script that allows a remote user to run SQL commands and python modules on the server.
   - image_processor.py
@@ -25,6 +27,8 @@ Contents:
     - Checks the Blueline TMAS for negative variances and compiles them into a spreadsheet which is sent to Liz every Monday
   - ISP Billing Script.py
     - script that goes into TMAS and for every bill in the current month collects the provider, amount, date, and customer name and compares it with the charges ostensibly for the same customer in Coredial and sends the result to Gwen every monday
+  - setup.py
+    - script for building Inventory Search Tool exe
 - one-off scripts
   * folder that contains one-off projects never intended for continuous service, hence "one-off". Unless stated otherwise, each script completed its task successfully
   - sql_backlog_check.py

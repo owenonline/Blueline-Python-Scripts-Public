@@ -3,6 +3,7 @@ from flask import request, jsonify
 import sqlite3
 from sqlite3 import Error
 import sys
+import os
 
 app=flask.Flask(__name__)
 stored_data=None
@@ -28,7 +29,7 @@ def create_connection(path):
 
 def execute_query(query):
     #sends an action query to the SQL server
-    connection=create_connection("database filepath")
+    connection=create_connection("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\bluecloud.sqlite")
     cursor = connection.cursor()
     try:
         cursor.execute(query)
@@ -41,7 +42,7 @@ def execute_query(query):
 
 def execute_read_query(query):
     #sends a read only query to the SQL server
-    connection=create_connection("database filepath")
+    connection=create_connection("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\bluecloud.sqlite")
     cursor=connection.cursor()
     result=None
     try:
@@ -65,15 +66,28 @@ def api():
     #app.config["DEBUG"]=True
     app.run(host="0.0.0.0",port=5000)
 
+@app.route('/ping',methods=['GET'])
+def ping():
+    return "True"
+
 @app.route('/post_file',methods=['POST'])
 def post_file():
     global stored_data
     file=request.files['file']
-    file.save('data file filepath'+file.filename)
-    stored_data='data file filepath'+file.filename
+    file.save('C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\'+file.filename)
+    stored_data='C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\'+file.filename
     print('data posted')
     return "complete"
 
+@app.route('/password_confirm',methods=['GET'])
+def password_confirm():
+    password=str(request.args['password'])
+    if password=="":
+        return "T"
+    else:
+        return "F"
+
+#/run_script?path='C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts'&name=image_processor.process_image
 @app.route('/run_script',methods=['GET'])
 def run_script():
     global stored_data
@@ -100,6 +114,7 @@ def run_script():
         result=mod()
     
     #reset what needs to be reset
+    os.remove(stored_data)
     stored_data=None
     sys.path.remove(path)
     print("script run complete")
@@ -108,14 +123,19 @@ def run_script():
 @app.route('/run_sql',methods=['GET'])
 def run_sql():
     #remotely execute write queries
+    auth=str(request.args['auth'])
     command=str(request.args['command'])
     cmdtype=str(request.args['cmdtype'])
-    if cmdtype=='read':
-        results=execute_read_query(command)
-        return jsonify(results)
-    if cmdtype=='write':
-        execute_query(command)
-        return "complete"
-    return "failed"
+    print(command)
+    if auth=="token":
+        if cmdtype=='read':
+            results=execute_read_query(command)
+            return jsonify(results)
+        if cmdtype=='write':
+            execute_query(command)
+            return "complete"
+        return "failed"
+    else:
+        return "failed"
 
 api()

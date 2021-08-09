@@ -10,19 +10,20 @@ import os
 import pyautogui
 from selenium.webdriver.chrome.options import Options
 import sys
-sys.path.insert(1, 'email automation folder filepath')
+sys.path.insert(1, 'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\email automation')
 from gmail_auto import send_mail
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 
 def refresh():
-    send_mail("my personal email address","company automated email address","test","test","")
+    send_mail("owenburns8@gmail.com","bluelinetelecom.python@gmail.com","test","test","")
 
 def alert(agent,status):
-    send_mail("sales rep email address, customer email address","company automated email address",agent+" is now "+status,agent+" is now "+status,"")
+    send_mail("stunis@truechoicetech.com, DGallo@cpsproducts.com","bluelinetelecom.python@gmail.com",agent+" is now "+status,agent+" is now "+status,"")
+    #send_mail("stunis@truechoicetech.com, owenburns88@gmail.com","bluelinetelecom.python@gmail.com",agent+" is now "+status,agent+" is now "+status,"")
     
-driver=webdriver.Chrome("chromedriver filepath",options=chrome_options)
+driver=webdriver.Chrome("C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\chromedriver.exe",options=chrome_options)
 #,options=chrome_options
 driver.get("https://voip.bluelinetelecom.com/login")
 driver.find_element_by_name("username").send_keys("")

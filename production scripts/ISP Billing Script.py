@@ -58,7 +58,6 @@ TMAS_info={}
 def tmas():
     global dt
     try:
-        print("ooh it worked")
         book = xlrd.open_workbook("C:\\Users\\rdp\\Downloads\\Billing_"+dt.strftime("%Y-%m-%d %H_%M_%S")+".xls")
         sh = book.sheet_by_index(0)
         for rx in range(1,sh.nrows):
@@ -76,11 +75,9 @@ def tmas():
                 'bill amount':bill_amount
             }
     except:
-        print("somehow we got here")
         dt=dt-datetime.timedelta(0,1)
         tmas()
-    
-print("bouta run this function")
+
 tmas()
 
 #sign into coredial
@@ -187,3 +184,4 @@ with open('C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\productio
         writer.writerow([x,TMAS_info[x]['provider'],str(TMAS_info[x]['bill date']),TMAS_info[x]['bill amount'],'|||||',coredial_info[x]['Coredial Name'],coredial_info[x]['Relevant Charges'],coredial_info[x]['Total'],str(coredial_info[x]['Date'])])
 
 send_mail("glao@bluelinetelecom.com","bluelinetelecom.python@gmail.com",'ISP Billing Data '+datetime.date.today().strftime("%b-%Y"),"",'C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\ISP Billing Data '+datetime.date.today().strftime("%b-%Y")+'.csv')
+os.remove('C:\\Users\\rdp\\Documents\\GitHub\\Blueline-Python-Scripts\\production scripts\\data_files\\ISP Billing Data '+datetime.date.today().strftime("%b-%Y")+'.csv')
